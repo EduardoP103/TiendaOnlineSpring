@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<aside th:replace="layout/layout :: sidebar"></aside>
+	<main id="main" class="main">
+		<div class="pagetitle">
+			<h1 th:text="${titulo}"></h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/index">Inicio</a></li>
+					<li class="breadcrumb-item">Clientes</li>
+					<li class="breadcrumb-item active">Tabla</li>
+				</ol>
+			</nav>
+		</div>
+		<section class="section">
+			<div class="row">
+				<div class="col-lg">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${titulo}"></h5>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">Id</th>
+										<th scope="col">Nombre</th>
+										<th scope="col">Apellido</th>
+										<th scope="col">Direccion</th>
+										<th scope="col">Email</th>
+										<th scope="col">DNI</th>
+										<th scope="col">Acciones</th>
+										</tr>
+								</thead>
+								<tbody>
+									<tr th:each="cliente: ${listaCliente}">
+										<td th:text="${cliente.idCliente}"></td>
+										<td th:text="${cliente.nombre}"></td>
+										<td th:text="${cliente.apellido}"></td>
+										<td th:text="${cliente.direccion}"></td>
+										<td th:text="${cliente.email}"></td>
+										<td th:text="${cliente.dni}"></td>
+										<td>
+											<a class="btn btn-primary btn-sm boton" th:href="@{/form/{id}(id=${cliente.id})}" th:text="'editar'"></a>
+											<span> | </span>
+											<a class="btn btn-danger btn-sm boton" th:href="@{/eliminar/{id}(id=${cliente.id})}" th:text="'eliminar'" onclick="confirm('¿Estás seguro que quieres eliminar?');"></a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

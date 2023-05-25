@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<aside th:replace="layout/layout :: sidebar"></aside>
+	<main id="main" class="main">
+		<div class="pagetitle">
+			<h1 th:text="${titulo}"></h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/index">Inicio</a></li>
+					<li class="breadcrumb-item">Usuarios</li>
+					<li class="breadcrumb-item active">Tabla</li>
+				</ol>
+			</nav>
+		</div>
+		<section class="section">
+			<div class="row">
+				<div class="col-lg">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${titulo}"></h5>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">id</th>
+										<th scope="col">Nombre</th>
+										<th scope="col">Apellido</th>
+										<th scope="col">DNI</th>
+										<th scope="col">Cargo</th>
+										<th scope="col">Dirección</th>
+										<th scope="col">Teléfono</th>
+										<th scope="col">Email</th>
+										<th scope="col">Fecha</th>
+										<th scope="col">Acciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="usuario: ${usuario}">
+									<td th:text="${usuario.id}"></td>
+									<td th:text="${usuario.nombre}"></td>
+									<td th:text="${usuario.apellido}"></td>
+									<td th:text="${usuario.dni}"></td>
+									<td th:text="${usuario.cargo}"></td>
+									<td th:text="${usuario.direccion}"></td>
+									<td th:text="${usuario.telefono}"></td>
+									<td th:text="${usuario.email}"></td>
+									<td th:text="${usuario.createAt}"></td>
+									<td><a class="btn btn-primary btn-sm boton"
+										th:href="@{/formUsuario/} + ${usuario.id}" th:text="'editar'"></a>
+										<span> | </span>
+										<a
+										class="btn btn-danger btn-sm boton"
+										th:href="@{/eliminarUsuario/} + ${usuario.id}" th:text="'eliminar'"
+										onclick=" confirm('Estás seguro que quieres eliminar?');"></a>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
