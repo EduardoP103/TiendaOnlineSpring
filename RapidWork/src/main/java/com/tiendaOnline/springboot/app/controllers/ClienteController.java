@@ -17,7 +17,7 @@ import com.tiendaOnline.springboot.app.models.entity.Cliente;
 import com.tiendaOnline.springboot.app.services.ClienteServices;
 
 @Controller
-@SessionAttributes("cliente")
+@RequestMapping("/cliente")
 public class ClienteController {
 	@Autowired 
 	private ClienteServices servicio;

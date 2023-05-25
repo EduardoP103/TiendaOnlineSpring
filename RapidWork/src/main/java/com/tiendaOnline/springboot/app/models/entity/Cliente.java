@@ -1,7 +1,7 @@
  package com.tiendaOnline.springboot.app.models.entity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,7 +45,7 @@ public class Cliente implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idCliente")
-	private Long idCliente;
+	private Integer idCliente;
 	@Column(name = "nombre", nullable = false)
 	private String nombre;
 	

@@ -24,7 +24,7 @@ public class ClienteServices {
 	}
 	
 	public List<Cliente> buscarTodo(){
-		return (ArrayList<Cliente>) repositorio.findAll();
+		return (List<Cliente>) repositorio.findAll();
 	}
 	
 	public Cliente buscarPorId(Integer id) {
