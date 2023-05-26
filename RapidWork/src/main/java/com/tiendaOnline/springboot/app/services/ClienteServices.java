@@ -1,6 +1,5 @@
 package com.tiendaOnline.springboot.app.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.tiendaOnline.springboot.app.models.entity.Cliente;
 import com.tiendaOnline.springboot.app.repository.ClienteRepository;
-
 import javax.transaction.Transactional;
 
 
@@ -32,12 +30,14 @@ public class ClienteServices {
 	}
 	
 	public Cliente actualizar(Cliente clienteActualizar) {
-		Cliente clienteActual = repositorio.findById(clienteActualizar.getIdCliente()).get();
-		clienteActual.setNombre(clienteActualizar.getNombre());
+		Cliente clienteActual = repositorio.findById(clienteActualizar.getId_cliente()).get();
+		
+		clienteActual.setId_cliente(clienteActualizar.getId_cliente());		
 		clienteActual.setApellido(clienteActualizar.getApellido());
 		clienteActual.setDireccion(clienteActualizar.getDireccion());
 		clienteActual.setDni(clienteActualizar.getDni());
 		clienteActual.setEmail(clienteActualizar.getEmail());
+		clienteActual.setNombre(clienteActualizar.getNombre());
 		
 		Cliente clienteActualizado = repositorio.save(clienteActual); 
 		return clienteActualizado;
@@ -46,4 +46,5 @@ public class ClienteServices {
 	public void eliminarCliente(Integer id) {
 		repositorio.deleteById(id);
 	}
+	
 }

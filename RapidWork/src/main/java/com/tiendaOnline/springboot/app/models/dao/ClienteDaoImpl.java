@@ -32,7 +32,7 @@ public class ClienteDaoImpl implements IClienteDao {
 	@Override
 	@Transactional
 	public void save(Cliente cliente) {
-		if(cliente.getIdCliente()!= null && cliente.getIdCliente()>0){
+		if(cliente.getId_cliente()!= null && cliente.getId_cliente()>0){
 			em.merge(cliente);
 		}else {
 			em.persist(cliente);

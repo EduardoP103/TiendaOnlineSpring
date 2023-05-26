@@ -2,6 +2,8 @@ package com.tiendaOnline.springboot.app.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,28 +40,30 @@ public class ClienteController {
 
 		return "index";
 	}
-	
-	@RequestMapping( "/form")
+	//Modificado de clienteActualizar a clienteCrear
+	@Valid
+	//Crear.html
+	@RequestMapping( "/crear")
 	public String crear(Model model) {
 		Cliente cliente = new Cliente ();
-		model.addAttribute("cliente",cliente);
-		return "/form"
-				+ "";	
+		model.addAttribute("actualizar",cliente);
+		return "/crear";	
 	}
 	
 	@RequestMapping(value ="/guardar", method= RequestMethod.POST)
 	public String crear(@ModelAttribute("cliente") Cliente cliente) {
 		    servicio.crear(cliente);
-		    return "redirect:/rest/cliente/listar";
+		    return "redirect:/cliente/listar";
+		    //"redirect:/rest/cliente/listar";
 		
 	}
-	
+	@Valid
 	 @RequestMapping(value ="/actualizar/{id}")
 	public ModelAndView editar(@PathVariable(name="id") int id) {
-		ModelAndView mav = new ModelAndView("/templates/form");
+		ModelAndView mav = new ModelAndView("/form");
 		Cliente cliente = servicio.buscarPorId(id);
 		mav.addObject("cliente",cliente);
-		return mav;
+		return  mav; 
 	}
 	
 	@RequestMapping(value = "/eliminar/{id}")

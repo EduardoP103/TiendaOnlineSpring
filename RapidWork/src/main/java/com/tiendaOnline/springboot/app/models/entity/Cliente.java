@@ -1,7 +1,8 @@
- package com.tiendaOnline.springboot.app.models.entity;
+package com.tiendaOnline.springboot.app.models.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,12 +29,12 @@ import lombok.NoArgsConstructor;
 @Table(name ="cliente")
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
-    @NamedQuery(name = "Cliente.findByIdCliente", query = "SELECT c FROM Cliente c WHERE c.idCliente = :idCliente"),
-    @NamedQuery(name = "Cliente.findByNombre", query = "SELECT c FROM Cliente c WHERE c.nombre = :nombre"),
+    @NamedQuery(name = "Cliente.findById_cliente", query = "SELECT c FROM Cliente c WHERE c.id_cliente = :id_cliente"),
     @NamedQuery(name = "Cliente.findByApellido", query = "SELECT c FROM Cliente c WHERE c.apellido = :apellido"),
     @NamedQuery(name = "Cliente.findByDireccion", query = "SELECT c FROM Cliente c WHERE c.direccion = :direccion"),
     @NamedQuery(name = "Cliente.findByDni", query = "SELECT c FROM Cliente c WHERE c.dni = :dni"),
-    @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email")
+    @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
+    @NamedQuery(name = "Cliente.findByNombre", query = "SELECT c FROM Cliente c WHERE c.nombre = :nombre")
 })
 
 
@@ -44,20 +45,28 @@ public class Cliente implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idCliente")
-	private Integer idCliente;
-	@Column(name = "nombre", nullable = false)
+	@Basic(optional = false)
+	@Column(name = "id_cliente")
+	private Integer id_cliente;
+	
+	@Basic(optional = false)
+	@Column(name = "nombre")
 	private String nombre;
 	
-	@Column(name = "apellido", nullable = false)
+	@Basic(optional = false)
+	@Column(name = "apellido")
 	private String apellido;
 	
-	@Column(name = "direccion", nullable = false)
+	@Basic(optional = false)
+	@Column(name = "direccion")
 	private String direccion;
 	
-	@Column(name = "dni", nullable = false)
+	@Basic(optional = false)
+	@Column(name = "dni")
 	private String dni;
 	
-	@Column(name = "email", nullable = false)
+	@Basic(optional = false)
+	@Column(name = "email")
 	private String email;
+	
 	}

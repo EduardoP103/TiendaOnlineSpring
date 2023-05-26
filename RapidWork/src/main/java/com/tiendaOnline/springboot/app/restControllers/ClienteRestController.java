@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,37 +30,42 @@ public class ClienteRestController {
 	private ClienteServices servicio;
 
 	@GetMapping
-	public ResponseEntity<List<Cliente>> buscarTodo() {
-		List<Cliente> listClientes = servicio.buscarTodo();
-		System.out.println("LISTA DE CLIENTES: " + listClientes);
-		return ResponseEntity.ok(listClientes);
+	public ResponseEntity <Object> buscarTodo() {
+		List<Cliente> listaClientes = servicio.buscarTodo();
+		System.out.println("LISTA DE CLIENTES: " + listaClientes);
+		return  new ResponseEntity<>(listaClientes, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Cliente> buscarPorId(@PathVariable("id") int id) {
+	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@ResponseBody
+	public ResponseEntity<Object> buscarPorId(@PathVariable("id") int id) {
 		Cliente cliente = servicio.buscarPorId(id);
 		if (cliente == null)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente no encontrado, el ID proporcionado no es correcto");
-		return ResponseEntity.ok(cliente);
+		return new ResponseEntity<Object>(cliente, HttpStatus.OK);
 	}
 
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> crear(@RequestBody Cliente cliente) {
+	@PostMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, 
+            consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }
+		)
+	public ResponseEntity<Object> crear(@RequestBody Cliente cliente) {
 		servicio.crear(cliente);
-		return ResponseEntity.ok("Cliente creado correctamente");
+		return new ResponseEntity<Object>("Cliente creada correctamente", HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> actualizar(@PathVariable("id") int id, @RequestBody Cliente cliente) {
-		cliente.setIdCliente(id);
+	@PutMapping (value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, 
+			consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }
+			)
+	public ResponseEntity<Object> actualizar(@PathVariable("id") int id, @RequestBody Cliente cliente) {
+
 		servicio.actualizar(cliente);
-		return ResponseEntity.ok("Cliente actualizado correctamente");
+		return new ResponseEntity<Object>("Cliente actualizado correctamente", HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<String> eliminar(@PathVariable("id") int id) {
+	public ResponseEntity<Object> eliminar(@PathVariable("id") int id) {
 		servicio.eliminarCliente(id);
-		return ResponseEntity.ok("Cliente eliminado correctamente");
+		return new ResponseEntity<Object>("CLiente eliminado correctamente", HttpStatus.OK);
 	}
 }
 
